@@ -13,11 +13,12 @@ class UserAdmin(BaserUserAdmin):
     list_display = ('email', 'phone_number', 'is_admin')
     list_filter = ('is_admin',)
     readonly_fields = ('last_login',)
+    filter_horizontal = ('groups', 'user_permissions')
 
     fieldsets = (
         ('Main', {'fields': ('email', 'phone_number', 'full_name', 'password')}),
-        ('None',
-         {'fields': ('is_active', 'is_admin', 'is_superuser', 'last_login')}),
+        ('permissions',
+         {'fields': ('is_active', 'is_admin', 'is_superuser', 'last_login', 'user_permissions')}),
     )
 
     add_fieldsets = (

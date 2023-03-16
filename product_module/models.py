@@ -24,8 +24,8 @@ class Category(models.Model):
     is_active = models.BooleanField(default=False, verbose_name='Active/Not')
 
     class Meta:
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name

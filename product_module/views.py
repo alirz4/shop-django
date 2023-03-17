@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
-from product_module.models import Product
+from product_module.models import Product, ProductGallery
 
 
 class ProductList(View):
@@ -20,4 +20,6 @@ class ProductDetail(View):
 
     def get(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
-        return render(request, self.template_name, {'product': product})
+        gallery = ProductGallery.objects.filter(product_id=pk)
+        return render(request, self.template_name, {'product': product,
+                                                    'gallery': gallery})

@@ -23,3 +23,4 @@ class ProductDetail(View):
         gallery = ProductGallery.objects.filter(product_id=pk)
         return render(request, self.template_name, {'product': product,
                                                     'gallery': gallery})
+

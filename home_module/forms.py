@@ -33,3 +33,22 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = '__all__'
+
+
+class UserRegisterForm(forms.Form):
+    phone = forms.CharField(max_length=11, label='Phone Number', widget=forms.TextInput)
+    email = forms.EmailField(max_length=50, label='Email', widget=forms.EmailInput)
+    full_name = forms.CharField(max_length=40, label='Full Name', widget=forms.TextInput)
+    password1 = forms.CharField(max_length=20, label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=20, label='Confirm Password', widget=forms.PasswordInput)
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
+            raise ValidationError('passwords not match')
+        return cd['password2']
+
+
+class UserLoginForm(forms.Form):
+    phone = forms.CharField(max_length=11, label='Phone Number', widget=forms.TextInput)
+    password = forms.CharField(max_length=20, label='Password', widget=forms.PasswordInput)

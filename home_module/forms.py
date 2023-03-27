@@ -52,3 +52,22 @@ class UserRegisterForm(forms.Form):
 class UserLoginForm(forms.Form):
     phone = forms.CharField(max_length=11, label='Phone Number', widget=forms.TextInput)
     password = forms.CharField(max_length=20, label='Password', widget=forms.PasswordInput)
+
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField(max_length=100, widget=forms.EmailInput, label='Email')
+
+
+class VerifyForgetPasswordForm(forms.Form):
+    code = forms.CharField(max_length=100, widget=forms.TextInput, label='Code')
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(max_length=30, label='password', widget=forms.TextInput)
+    confirm_password = forms.CharField(max_length=30, label='confirm password', widget=forms.TextInput)
+
+    def clean_confirm_password(self):
+        cd = self.cleaned_data
+        if cd['password'] and cd['confirm_password'] and cd['password'] != cd['confirm_password']:
+            raise ValidationError('passwords not match')
+        return cd['confirm_password']

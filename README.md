@@ -1,2 +1,2 @@
 # shop-django
-a test
+simple online shop (backend) 
